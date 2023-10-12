@@ -9,16 +9,35 @@
   }
 </script>
 
+<style type="text/css">
+  [name="tree-view-container"] {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    text-align: left;
+  }
+  [name="tree-view-items"] {
+    overflow: scroll;
+  }
+
+  [name="tree-view-items"]::-webkit-scrollbar {
+    display: none;
+  }
+</style>
+
+
 <main>
   {#if loadingFile}
     {#await loadingFile}
       <p>loading</p>
     {:then file}
-      <section name="tree-view" style="height: 700px; overflow: scroll; display: block; text-align: left" >
+      <section name="tree-view-container">
         <h1>{file.name}</h1>
-        {#each Object.entries(file.json).slice(0, 3500) as [jsonKey, value]}
-          <TreeNode node={value} key={jsonKey} depth={0} />
-        {/each}
+        <section name="tree-view-items">
+          {#each Object.entries(file.json).slice(0, 3500) as [jsonKey, value]}
+            <TreeNode node={value} key={jsonKey} depth={0} />
+          {/each}
+        </section>
       </section>
     {:catch error}
       <p>{error.message}</p>

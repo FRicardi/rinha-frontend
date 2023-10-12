@@ -2,6 +2,7 @@
   export let key = ""
   export let node;
   export let depth;
+  export let style = "text";
   
   let isNodeLoopable = typeof node == 'object' || Array.isArray(node); 
 
@@ -10,16 +11,15 @@
       return ''
     
     if (typeof node === 'string')
-      return `": ${node}"`;
+      return `"${node}"`;
 
     if (Array.isArray(node))
-      return ":["
+      return "["
 
     if (!isNodeLoopable)
-      return `: ${node}`;    
+      return `${node}`;
 
-    if (node)
-      return ':';   
+    return '';
   }
 </script>
 
@@ -29,22 +29,34 @@
   }
 
   .inner-node {
-    border-left: 1px solid black;
+    border-left: 1px solid #BFBFBF;
+  }
+
+  .arrayKey {
+    color: #BFBFBF;
+  }
+  
+  .text {
+    color: #4E9590;
+  }
+
+  .brackets {
+    color: #F2CAB8;
   }
 </style>
 
 
 <div class="tree-node {depth !== 0 ? 'inner-node' : ''}">
-  {key}{formatNode()}
+  <span class={style}>{key}:</span><span class={Array.isArray(node) ? "brackets" : ""}>{formatNode()}</span>
 
 
   {#if isNodeLoopable}
     {#each Object.entries(node) as [nodeChildKey, nodeChild]}
-      <svelte:self key={nodeChildKey} node={nodeChild} depth={depth + 1} />
+      <svelte:self key={nodeChildKey} node={nodeChild} depth={depth + 1} style={Array.isArray(node) ? "arrayKey" : "text"}/>
     {/each}
   {/if}
 
 </div>
   {#if Array.isArray(node)}
-    <svelte:self key="]" {depth} node={undefined} />
+    <svelte:self key="]" {depth} node={undefined} style="brackets"/>
   {/if}
