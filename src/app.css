@@ -1,0 +1,21 @@
+:root {
+  font-family: Arial, sans-serif;
+}
+
+body {
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#app {
+  margin: 0 auto;
+  text-align: center;
+}
+
+:root {
+  color: #000000;
+  background-color: #ffffff;
+}
