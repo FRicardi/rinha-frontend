@@ -1,4 +1,5 @@
 <script type="text/javascript">
+  import TreeNode from './components/TreeNode.svelte'
   import { loadJson } from './lib/loadFile.js'
 
   let loadingFile = undefined;
@@ -18,8 +19,11 @@
     {#await loadingFile}
       <p>loading</p>
     {:then json}
-
-      <p>{Object.keys(json).length}</p>
+      <section name="tree-view" style="height: 700px; overflow: scroll; display: block; text-align: left" >
+        {#each Object.keys(json) as jsonKey}
+          <TreeNode node={json[jsonKey]} key={jsonKey} depth={0} />
+        {/each}
+      </section>
     {:catch error}
       <p>{error.message}</p>
     {/await}
