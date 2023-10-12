@@ -18,7 +18,8 @@
     {#await loadingFile}
       <p>loading</p>
     {:then json}
-      <p>loaded</p>
+
+      <p>{Object.keys(json).length}</p>
     {:catch error}
       <p>{error.message}</p>
     {/await}

@@ -9,12 +9,8 @@ export function loadJson (event) {
     if (uploadedFile) {
       var readFile = new FileReader();
       readFile.onload = function(readEvent) {
-        console.log(" not suer")
         const json = JSON.parse(readEvent.target.result);
-        setTimeout(() => {
-          console.log("resolved")
-          resolve(json)
-        }, 5000)
+        resolve(json)
       };
       readFile.readAsText(uploadedFile);
     } else {
