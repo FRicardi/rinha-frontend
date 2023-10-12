@@ -10,7 +10,7 @@ export function loadJson (event) {
       var readFile = new FileReader();
       readFile.onload = function(readEvent) {
         const json = JSON.parse(readEvent.target.result);
-        resolve(json)
+        resolve({ name: uploadedFile.name, json })
       };
       readFile.readAsText(uploadedFile);
     } else {

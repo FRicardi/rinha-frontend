@@ -10,22 +10,22 @@
 </script>
 
 <main>
-  <h1>JSON Tree Viewer</h1>
-  <h2>Simple JSON Viewer that runs completely on-client. No data exchange.</h2>
-
-  <input type="file" name="load-json" on:change={handleLoadFile} />
-
   {#if loadingFile}
     {#await loadingFile}
       <p>loading</p>
-    {:then json}
+    {:then file}
       <section name="tree-view" style="height: 700px; overflow: scroll; display: block; text-align: left" >
-        {#each Object.entries(json).slice(0, 3500) as [jsonKey, value]}
+        <h1>{file.name}</h1>
+        {#each Object.entries(file.json).slice(0, 3500) as [jsonKey, value]}
           <TreeNode node={value} key={jsonKey} depth={0} />
         {/each}
       </section>
     {:catch error}
       <p>{error.message}</p>
     {/await}
+  {:else}
+    <h1>JSON Tree Viewer</h1>
+    <h2>Simple JSON Viewer that runs completely on-client. No data exchange.</h2>
+    <input type="file" name="load-json" on:change={handleLoadFile} />
   {/if}
 </main>
