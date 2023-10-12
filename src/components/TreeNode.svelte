@@ -12,7 +12,7 @@
 
 
 {#if isNodeLoopable && !!node}
-  {#each Object.keys(node) as nodeChildKey}
-    <svelte:self key={nodeChildKey} node={node[nodeChildKey]} depth={depth + 1} />
+  {#each Object.entries(node) as [nodeChildKey, nodeChild]}
+    <svelte:self key={nodeChildKey} node={nodeChild} depth={depth + 1} />
   {/each}
 {/if}

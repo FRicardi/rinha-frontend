@@ -20,8 +20,8 @@
       <p>loading</p>
     {:then json}
       <section name="tree-view" style="height: 700px; overflow: scroll; display: block; text-align: left" >
-        {#each Object.keys(json) as jsonKey}
-          <TreeNode node={json[jsonKey]} key={jsonKey} depth={0} />
+        {#each Object.entries(json).slice(0, 3500) as [jsonKey, value]}
+          <TreeNode node={value} key={jsonKey} depth={0} />
         {/each}
       </section>
     {:catch error}
